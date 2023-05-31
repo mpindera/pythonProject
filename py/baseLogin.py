@@ -31,16 +31,14 @@ def check_credentials_in_file(username, password, uuid):
     return False
 
 
-
 # open another screen
 def sign_up():
     root.destroy()  # close login screen
     os.system("python baseRegister.py")
 
-
-def main_screen():
-    root.destroy()  # close login screen
-    os.system("python MainPageAdmin.py")
+def chooser_main():
+    root.destroy()
+    os.system("python chooserMain.py")
 
 
 class BaseLogin:
@@ -118,7 +116,7 @@ class BaseLogin:
 
         if check_credentials(username, decode, uuid):
             messagebox.showwarning('Success', "Welcome!")
-            main_screen()
+            chooser_main()
         else:
             messagebox.showerror('Error', "Invalid credentials")
 

@@ -16,7 +16,7 @@ def on_key_press(event):
         return False
 
 
-class MainPageAdmin:
+class mainPageAdmin:
 
     def check_all(self, username_dietitian):
         if self.patient_field_email.get() \
@@ -32,10 +32,13 @@ class MainPageAdmin:
             return False
 
     def send_mail(self):
-        email_sender = self.patient_field_email.get()
+        email_sender = 'mikolajpindera2@gmail.com'
         email_password = 'wwalnnbrcohqkgvk'
-        email_receiver = 'mikolajpindera2@gmail.com'
+        email_receiver = self.patient_field_email.get()
         name_receiver = self.patient_field_name.get()
+
+        email_to_save = email_receiver
+        filename = 'patient_emails.txt'
 
         subject = 'Diet'
 
@@ -81,6 +84,9 @@ class MainPageAdmin:
         </body>
         </html>
         """
+
+        with open(filename, 'w') as file:
+            file.write(email_to_save + '|')
 
         em = EmailMessage()
         em['From'] = email_sender
@@ -275,5 +281,5 @@ class MainPageAdmin:
 
 
 root = tk.Tk()
-mainPage = MainPageAdmin(root)
+mainPage = mainPageAdmin(root)
 root.mainloop()
