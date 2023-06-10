@@ -1,63 +1,77 @@
+import os
 import tkinter as tk
 from tkinter import messagebox
-from tkinter.scrolledtext import ScrolledText
 import smtplib
 from email.message import EmailMessage
 import ssl
-from tkinter import IntVar
+
+window = tk.Tk()
+window.title("Sending e-mails")
+window.geometry("600x600")
 
 
-def send_email(sender_email, password, selected_emails, subject, message):
-    context = ssl.create_default_context()
-    for email in selected_emails:
-        try:
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-                smtp.login(sender_email, password)
-                msg = EmailMessage()
-                msg['From'] = sender_email
-                msg['To'] = email
-                msg['Subject'] = subject
-                msg.set_content(message)
-                smtp.send_message(msg)
-            messagebox.showinfo('Email', "Wiadomość została wysłana.")
-        except Exception as e:
-            messagebox.showerror('Błąd', f"Wystąpił błąd podczas wysyłania wiadomości: {str(e)}")
-
-def read_emails(filename):
-    with open(filename, 'r') as file:
-        emails = file.read().split('|')
-    return [email.strip() for email in emails if email.strip()]
-
-def send_message():
+def go_back(root):
+    root.destroy()
+    os.system('python ChooserMain.py')
+def send_email():
     sender_email = 'mikolajpindera2@gmail.com'
     password = 'wwalnnbrcohqkgvk'
-    subject = 'Subject of the email'
-    message = 'Body of the email'
 
-    selected_emails = [email for email, checkbox_var in checkbox_vars.items() if checkbox_var.get() == 1]
+    go_back_button = tk.Button(window, text="Go Back", command=lambda: go_back(window))
+    go_back_button.pack()
 
-    if selected_emails:
-        send_email(sender_email, password, selected_emails, subject, message)
-    else:
-        messagebox.showwarning('Brak zaznaczenia', 'Proszę zaznaczyć co najmniej jeden email.')
+    try:
+        recipient_emails = listbox.curselection()
+        title = title_entry.get()
+        subject = subject_entry.get('1.0', tk.END)
 
+        context = ssl.create_default_context()
 
-def create_checkbox_list(root, emails):
-    checkbox_vars = {}
-    for email in emails:
-        checkbox_var = IntVar()
-        checkbox = tk.Checkbutton(root, text=email, variable=checkbox_var)
-        checkbox.pack(anchor="w")
-        checkbox_vars[email] = checkbox_var
+        for index in recipient_emails:
+            recipient_email = listbox.get(index)
 
-    return checkbox_vars
+            message = EmailMessage()
+            message["From"] = sender_email
+            message["To"] = recipient_email
+            message["Subject"] = title
+            message.set_content(subject)
 
-root = tk.Tk()
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as server:
+                server.login(sender_email, password)
+                server.send_message(message)
 
-emails = read_emails('patient_emails.txt')
-checkbox_vars = create_checkbox_list(root, emails)
+        messagebox.showinfo("Success", "Message e-mail has send!")
+        go_back(window)
+    except Exception as e:
+        messagebox.showerror("ERROR!", str(e))
 
-send_button = tk.Button(root, text="Wyślij", command=send_message)
+with open("patient_emails.txt", "r") as file:
+    emails = file.read().split("|")
+
+scrollbar = tk.Scrollbar(window)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+listbox = tk.Listbox(window, selectmode=tk.MULTIPLE, yscrollcommand=scrollbar.set)
+listbox.pack(fill=tk.BOTH, expand=True)
+
+for email in emails:
+    listbox.insert(tk.END, email.strip())
+
+scrollbar.config(command=listbox.yview)
+
+title_label = tk.Label(window, text="Title:")
+title_label.pack()
+
+title_entry = tk.Entry(window,width=40)
+title_entry.pack()
+
+subject_label = tk.Label(window, text="Subject:")
+subject_label.pack()
+
+subject_entry = tk.Text(window, height=10)
+subject_entry.pack()
+
+send_button = tk.Button(window, text="Send", command=send_email)
 send_button.pack()
 
-root.mainloop()
+window.mainloop()

@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter.ttk import Spinbox, Label
@@ -17,7 +18,9 @@ def on_key_press(event):
 
 
 class mainPageAdmin:
-
+    def go_back(self):
+        self.root.destroy()
+        os.system('python ChooserMain.py')
     def check_all(self, username_dietitian):
         if self.patient_field_email.get() \
                 and username_dietitian \
@@ -156,6 +159,13 @@ class mainPageAdmin:
 
         self.root.resizable(False, False)
         self.root.configure(bg="#F9F5F6")
+
+        style = ttk.Style()
+        style.configure('back.TButton', foreground='red', font=('Arial', 12, 'bold'))
+
+        back_button = ttk.Button(root, text="Go Back", style='back.TButton', command=self.go_back)
+        back_button.place(x=100, y=400)
+
         tk.Label(self.root, text='Welcome in Health Care', fg="#643843", bg='#F9F5F6', font=(
             'Microsoft Yahei UI Light', 23, 'bold')).place(x=295, y=10)
 
