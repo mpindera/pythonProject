@@ -1,1 +1,2 @@
-{username-miki : password-MTIz : UUID.010028c8-35b7-4df7-987c-726927410675}
+{username-test1 : password-dGVzdA== : UUID.010028c8-35b7-4df7-987c-726927410675
+{username-test2 : password-dGVzdA== : UUID.010028c8-35b7-4df7-987c-726927410675

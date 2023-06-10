@@ -4,6 +4,13 @@ import base64
 from tkinter import messagebox
 import uuid
 
+"""
+1. The necessary imports are done, including `os`, `tkinter`, `base64`, `messagebox`, and `uuid`.
+
+This script provides a registration screen for a Health Care application. Users can sign up by providing a username,
+password, and confirming the password. The provided information is then encoded and stored in a datasheet.txt file.
+"""
+
 
 # open another screen
 def sign_in():

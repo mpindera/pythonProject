@@ -1,9 +1,9 @@
 import os
 import tkinter as tk
-import base64
-from tkinter import messagebox
-import uuid
 
+"""
+Menu to select options 
+"""
 
 # open another screen
 def sign_in():
@@ -19,6 +19,11 @@ def main_screen():
 def send_email():
     root.destroy()
     os.system("python sendMail.py")
+
+
+def add_admin():
+    root.destroy()
+    os.system("python addAdmin.py")
 
 
 class BaseRegister:
@@ -55,6 +60,9 @@ class BaseRegister:
         tk.Button(root, width=41, pady=7, text='Register person', command=main_screen,
                   border=0, bg='#27374D',
                   fg='white').place(x=150, y=160)
+        tk.Button(root, width=41, pady=7, text='Add admin', command=add_admin,
+                  border=0, bg='#27374D',
+                  fg='white').place(x=150, y=210)
 
 
 root = tk.Tk()

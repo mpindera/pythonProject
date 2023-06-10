@@ -5,20 +5,24 @@ import smtplib
 from email.message import EmailMessage
 import ssl
 
+"""
+Allows email to be sent to recipients from a list of email addresses stored on file.
+"""
+
 window = tk.Tk()
 window.title("Sending e-mails")
 window.geometry("600x600")
+window.resizable(False, False)  # Disable window resizing
 
 
-def go_back(root):
-    root.destroy()
+def go_back():
+    window.destroy()
     os.system('python ChooserMain.py')
+
+
 def send_email():
     sender_email = 'mikolajpindera2@gmail.com'
     password = 'wwalnnbrcohqkgvk'
-
-    go_back_button = tk.Button(window, text="Go Back", command=lambda: go_back(window))
-    go_back_button.pack()
 
     try:
         recipient_emails = listbox.curselection()
@@ -40,10 +44,13 @@ def send_email():
                 server.login(sender_email, password)
                 server.send_message(message)
 
-        messagebox.showinfo("Success", "Message e-mail has send!")
-        go_back(window)
+        messagebox.showinfo("Success", "Message e-mail has been sent!")
+
     except Exception as e:
         messagebox.showerror("ERROR!", str(e))
+
+    go_back()
+
 
 with open("patient_emails.txt", "r") as file:
     emails = file.read().split("|")
@@ -62,7 +69,7 @@ scrollbar.config(command=listbox.yview)
 title_label = tk.Label(window, text="Title:")
 title_label.pack()
 
-title_entry = tk.Entry(window,width=40)
+title_entry = tk.Entry(window, width=40)
 title_entry.pack()
 
 subject_label = tk.Label(window, text="Subject:")
@@ -73,5 +80,17 @@ subject_entry.pack()
 
 send_button = tk.Button(window, text="Send", command=send_email)
 send_button.pack()
+
+go_back_button = tk.Button(window, text="Go Back", command=go_back)
+go_back_button.pack()
+
+window.update_idletasks()
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+window_width = window.winfo_width()
+window_height = window.winfo_height()
+pos_x = (screen_width - window_width) // 2
+pos_y = (screen_height - window_height) // 2
+window.geometry(f"+{pos_x}+{pos_y}")
 
 window.mainloop()

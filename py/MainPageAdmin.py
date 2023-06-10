@@ -8,6 +8,11 @@ import ssl
 import smtplib
 from tkinter import messagebox
 
+"""
+It represents the main page of an admin interface for a health care application. 
+It provides functionality to calculate and send diet information to patients via email.  
+"""
+
 
 def on_key_press(event):
     # Check if the pressed key is a number or a special key like backspace or delete

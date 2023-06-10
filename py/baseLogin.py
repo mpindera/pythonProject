@@ -3,8 +3,13 @@ import os
 import tkinter as tk
 import uuid
 from tkinter import messagebox
-import re
+""" 
+This code is a simple login screen implementation using Tkinter library in Python. 
+It allows users to enter their username and password, and upon clicking the "Enter to account" 
 
+The `sign_up` function opens another screen for user registration. 
+The `chooser_main` function opens another screen for the main application.
+"""
 
 # When clicked sign_in button
 def check_credentials(username, password, uuid):
