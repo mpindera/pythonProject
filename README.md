@@ -22,3 +22,12 @@ Run baseRegister.py
 
 3. Adding UUID to new Admin ![2023-06-11-00-00-01](https://github.com/mpindera/pythonProject/assets/107795584/b6a2477c-34d7-47d9-b84b-df2f02d55d10)
 
+Admin Interface for Health Care Application: This part allows an admin to calculate and send diet information to patients via email. It utilizes the tkinter library for creating a graphical user interface (GUI) and the smtplib library for sending emails. The main functionality includes:
+
+Input fields for patient email, patient name, and dietitian name
+Dropdown menus for selecting gender and activity level
+Spinbox for entering age
+Entry fields for weight and height
+Calculation of caloric requirements, protein, fat, and carbohydrates based on the input values
+Displaying the calculated values in a table format
+Sending an email to the patient with the calculated diet information
