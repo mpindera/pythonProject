@@ -31,7 +31,7 @@ Entry fields for weight and height
 Calculation of caloric requirements, protein, fat, and carbohydrates based on the input values
 Displaying the calculated values in a table format
 Sending an email to the patient with the calculated diet information
-#Admin Interface:
+# Admin Interface:
 
 Fill in the required information in the input fields (patient email, patient name, dietitian name, gender, activity level, weight, height, and age).
 Click on the "Calculate" button to calculate the diet information.
